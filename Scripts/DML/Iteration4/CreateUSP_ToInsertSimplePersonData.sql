@@ -1,4 +1,4 @@
-CREATE PROCEDURE uspInsertPersonInformation
+CREATE OR ALTER PROCEDURE uspInsertPersonInformation
 	@FirstName varchar(20),
 	@LastName varchar(20),
 	@EmailAddress varchar(50),
@@ -13,7 +13,7 @@ AS
 	VALUES
 		(@FirstName, @LastName)
 
-	SELECT @PersonID = MAX(PersonID) FROM PersonLookup
+	SELECT @PersonID = SCOPE_IDENTITY()
 
 	INSERT INTO EmailAddress
 		(EmailAddress, PersonID)
@@ -32,7 +32,7 @@ AS
 			(@CountryCode, @PhoneNumber)
 
 
-	SELECT @PhoneID = MAX(PhoneID) FROM PhoneLookup
+	SELECT @PhoneID = SCOPE_IDENTITY()
 
 	INSERT INTO PersonPhone
 		(PersonID, PhoneID)
