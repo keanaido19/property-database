@@ -10,34 +10,43 @@ CREATE OR ALTER PROCEDURE uspInsertApartmentLotData
 	@Zip varchar(10),
 	@Country varchar(20)
 AS
-	
-	INSERT INTO Location
-		(Street, City, Province, Zip, Country)
-	VALUES
-		(@Street, @City, @Province, @Zip, @Country)
+	DECLARE @ID int NULL
 
-	DECLARE @LocationID int
-	SELECT @LocationID = SCOPE_IDENTITY()
+	SELECT @ID = ApartmentID FROM Apartments WHERE ApartmentID = @ApartmentID
 
-	INSERT INTO Properties
-		(LocationID)
-	VALUES
-		(@LocationID)
+	IF @ID IS NOT NULL
+	BEGIN
+		INSERT INTO Location
+			(Street, City, Province, Zip, Country)
+		VALUES
+			(@Street, @City, @Province, @Zip, @Country)
 
-	DECLARE @PropertyID int
-	SELECT @PropertyID = SCOPE_IDENTITY()
+		DECLARE @LocationID int
+		SELECT @LocationID = SCOPE_IDENTITY()
 
-	INSERT INTO Lots
-		(Number, PropertyID)
-	VALUES
-		(@Number, @PropertyID)
+		INSERT INTO Properties
+			(LocationID)
+		VALUES
+			(@LocationID)
 
-	DECLARE @LotID int
-	SELECT @LotID = SCOPE_IDENTITY()
+		DECLARE @PropertyID int
+		SELECT @PropertyID = SCOPE_IDENTITY()
 
-	INSERT INTO ApartmentLots
-		(LotID, ApartmentID)
-	VALUES
-		(@LotID, @ApartmentID)
+		INSERT INTO Lots
+			(Number, PropertyID)
+		VALUES
+			(@Number, @PropertyID)
+
+		DECLARE @LotID int
+		SELECT @LotID = SCOPE_IDENTITY()
+
+		INSERT INTO ApartmentLots
+			(LotID, ApartmentID)
+		VALUES
+			(@LotID, @ApartmentID)
+	END
+	ELSE
+	PRINT('ApartmentID does not exist')
+
 
 GO

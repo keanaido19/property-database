@@ -1,3 +1,6 @@
+USE PropertyManagementSystem
+GO
+
 CREATE OR ALTER PROCEDURE uspInsertPropertyData
 	@LocationID int
 AS

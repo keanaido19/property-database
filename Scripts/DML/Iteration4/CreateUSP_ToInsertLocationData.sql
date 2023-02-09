@@ -1,3 +1,6 @@
+USE PropertyManagementSystem
+GO
+
 CREATE OR ALTER PROCEDURE uspInsertLocationData
 	@Street varchar(30),
 	@City varchar(20),
