@@ -1,9 +1,9 @@
 USE PropertyManagementSystem
 GO
 
-CREATE OR ALTER PROCEDURE uspInsertEstateLotData
+CREATE OR ALTER PROCEDURE uspInsertApartmentLotData
 	@Number varchar(4),
-	@EstateID int,
+	@ApartmentID int,
 	@Street varchar(30),
 	@City varchar(20),
 	@Province varchar(20),
@@ -35,9 +35,9 @@ AS
 	DECLARE @LotID int
 	SELECT @LotID = SCOPE_IDENTITY()
 
-	INSERT INTO EstateLots
-		(LotID, EstateID)
+	INSERT INTO ApartmentLots
+		(LotID, ApartmentID)
 	VALUES
-		(@LotID, @EstateID)
+		(@LotID, @ApartmentID)
 
 GO
