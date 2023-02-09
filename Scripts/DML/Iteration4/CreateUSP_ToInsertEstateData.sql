@@ -1,3 +1,6 @@
+USE PropertyManagementSystem
+GO
+
 CREATE OR ALTER PROCEDURE uspInsertEstateData
 	@Name varchar(30),
 	@Street varchar(30),
@@ -6,8 +9,21 @@ CREATE OR ALTER PROCEDURE uspInsertEstateData
 	@Zip varchar(10),
 	@Country varchar(20)
 AS
+	INSERT INTO Location
+		(Street, City, Province, Zip, Country)
+	VALUES
+		(@Street, @City, @Province, @Zip, @Country)
+
+	DECLARE @LocationID int
+	SELECT @LocationID = SCOPE_IDENTITY()
+
+	INSERT INTO Properties
+		(LocationID)
+	VALUES
+		(@LocationID)
+
 	DECLARE @PropertyID int
-	SET @PropertyID = dbo.udfAddLocationAndPropertyDataAndGetPropertyID(@Street, @City, @Province, @Zip, @Country)
+	SELECT @PropertyID = SCOPE_IDENTITY()
 
 	INSERT INTO Estates
 		(Name, PropertyID)

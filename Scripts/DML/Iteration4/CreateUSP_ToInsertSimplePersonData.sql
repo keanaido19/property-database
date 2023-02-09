@@ -1,3 +1,6 @@
+USE PropertyManagementSystem
+GO
+
 CREATE OR ALTER PROCEDURE uspInsertPersonInformation
 	@FirstName varchar(20),
 	@LastName varchar(20),
